@@ -21,8 +21,10 @@ public class PlayerController : MonoBehaviour
     public float flipSpeed = 0.0f;
     private bool canShotJump;
     private bool landed;
+    private int shootTime;
     public TextMeshProUGUI countText;
     public GameObject winTextObject;
+    public GameObject shotObject;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +35,7 @@ public class PlayerController : MonoBehaviour
         winTextObject.SetActive(false);
         canShotJump = false;
         landed = false;
+        shotObject.SetActive(false);
     }
     private void FixedUpdate()
     {
@@ -67,7 +70,18 @@ public class PlayerController : MonoBehaviour
             transform.Rotate(new Vector3(flip, 0, 0));
             landed = false;
             
+               
+            
 
+        }
+        if (shootTime == 3)
+        {
+            //  shotObject.SetActive(true);
+            shootTime = 0;
+                shotObject.SetActive(false);
+        }
+        if (shotObject.activeSelf) {
+            shootTime++;
         }
 
         
@@ -78,16 +92,19 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector3(0.0f, 5.0f, 0.0f);
 
         }
+
+
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("PickUp"))
+        if (other.gameObject.CompareTag("PickUp") && shootTime==0)
         {
+
             other.gameObject.SetActive(false);
             count+=1;
             SetCountText();
-            if (count >= 4)
+            if (count >= 5)
             {
                 winTextObject.SetActive(true);
             }
@@ -101,7 +118,6 @@ public class PlayerController : MonoBehaviour
         if (IsGrounded()/* && transform.rotation.x==0*/){
             movementX = movementVector.x;
             movementZ = movementVector.y;
-            print(movementX + ": " + movementZ);
         }
         else {
             movementZ = 0f;
@@ -119,6 +135,9 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddRelativeForce(0.0f, 0.0f, -shotJumpPower);
             canShotJump = false;
+            shotObject.SetActive(true);
+            
+
         }
     }
     void OnRotate (InputValue turnValue)
