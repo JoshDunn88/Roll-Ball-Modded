@@ -7,6 +7,7 @@ TagManager:
   - PickUp
   - Breakable
   - Explosion
+  - Exit
   layers:
   - Default
   - TransparentFX

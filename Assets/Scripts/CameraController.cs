@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    //This is all classic rollaballs, I wanted to do camera movement but I'm only human
     // Reference to the player GameObject.
     public GameObject player;
 

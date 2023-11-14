@@ -5,17 +5,7 @@ using UnityEngine;
 
 public class Breakable : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //wooden objects break when shot collides
     void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Explosion"))
